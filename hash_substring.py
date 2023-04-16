@@ -54,7 +54,9 @@ def get_occurrences(pattern, text):
             if text[index:index+len(pattern)]==pattern:
                 result.append(index)
         if index<len(text)-len(pattern):
-            hash=(hash-ord(text[index])*13**2)*13+ord(text[index+len(pattern)])
+            hash-=ord(text[index])*13**(len(pattern)-1)
+            hash*=13
+            hash+=ord(text[index+len(pattern)])
             hash%=256
             
                 
