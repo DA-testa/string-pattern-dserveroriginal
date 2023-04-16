@@ -13,7 +13,7 @@ def read_input():
     # return both lines in one return
     
     # this is the sample return, notice the rstrip function
-    mode= input().rstrip()
+    mode= input().rstrip().lower() 
     if mode=='i':
         return (input().rstrip(), input().rstrip())
     else:
