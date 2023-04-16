@@ -1,4 +1,5 @@
 # python3
+# author: 221RDB047
 
 def read_input():
     # this function needs to aquire input both from keyboard and file
@@ -13,17 +14,56 @@ def read_input():
     # return both lines in one return
     
     # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
+    mode= input().rstrip().lower() 
+    if mode=='i':
+        return (input().rstrip(), input().rstrip())
+    else:
+        with open("tests/06") as file:
+            try:
+                return (file.readline().rstrip(), file.readline().rstrip())
+            except:
+                return ('','')
+    
 
 def print_occurrences(output):
     # this function should control output, it doesn't need any return
     print(' '.join(map(str, output)))
+    
+def get_hash(pattern: str):
+    # this function returns hash of pattern
+    
+    result=0
+    for index in range(len(pattern)):
+        result*=13
+        result+=ord(pattern[index])
+        result%=256
+    
+    return result
 
 def get_occurrences(pattern, text):
     # this function should find the occurances using Rabin Karp alghoritm 
 
     # and return an iterable variable
-    return [0]
+    
+    result=[]
+    
+    hash=get_hash(text[:len(pattern)])
+    
+    for index in range(len(text)-len(pattern)+1):
+        if hash==get_hash(pattern):
+            if text[index:index+len(pattern)]==pattern:
+                result.append(index)
+        if index<len(text)-len(pattern):
+            hash-=ord(text[index])*13**(len(pattern)-1)
+            hash*=13
+            hash+=ord(text[index+len(pattern)])
+            hash%=256
+            
+                
+    if result == []:
+        result.append(-1)
+    
+    return result
 
 
 # this part launches the functions
