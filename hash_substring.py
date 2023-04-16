@@ -1,4 +1,5 @@
 # python3
+# author: 221RDB047
 
 def read_input():
     # this function needs to aquire input both from keyboard and file
@@ -18,7 +19,10 @@ def read_input():
         return (input().rstrip(), input().rstrip())
     else:
         with open(input().rstrip()) as file:
-            return (file.readline().rstrip(), file.readline().rstrip())
+            try:
+                return (file.readline().rstrip(), file.readline().rstrip())
+            except:
+                return ('','')
     
 
 def print_occurrences(output):
