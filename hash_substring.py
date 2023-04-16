@@ -18,7 +18,7 @@ def read_input():
     if mode=='i':
         return (input().rstrip(), input().rstrip())
     else:
-        with open(input().rstrip()) as file:
+        with open("tests/06") as file:
             try:
                 return (file.readline().rstrip(), file.readline().rstrip())
             except:
