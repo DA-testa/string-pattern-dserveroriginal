@@ -47,11 +47,17 @@ def get_occurrences(pattern, text):
     
     result=[]
     
+    hash=get_hash(text[:len(pattern)])
+    
     for index in range(len(text)-len(pattern)+1):
-        if get_hash(text[index:index+len(pattern)])==get_hash(pattern):
+        if hash==get_hash(pattern):
             if text[index:index+len(pattern)]==pattern:
                 result.append(index)
-    
+        if index<len(text)-len(pattern):
+            hash=(hash-ord(text[index])*13**2)*13+ord(text[index+len(pattern)])
+            hash%=256
+            
+                
     if result == []:
         result.append(-1)
     
