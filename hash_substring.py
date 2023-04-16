@@ -13,17 +13,45 @@ def read_input():
     # return both lines in one return
     
     # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
+    mode= input().rstrip()
+    if mode=='i':
+        return (input().rstrip(), input().rstrip())
+    else:
+        with open(input().rstrip()) as file:
+            return (file.readline().rstrip(), file.readline().rstrip())
+    
 
 def print_occurrences(output):
     # this function should control output, it doesn't need any return
     print(' '.join(map(str, output)))
+    
+def get_hash(pattern: str):
+    # this function returns hash of pattern
+    
+    result=0
+    for index in range(len(pattern)):
+        result*=13
+        result+=ord(pattern[index])
+        result%=256
+    
+    return result
 
 def get_occurrences(pattern, text):
     # this function should find the occurances using Rabin Karp alghoritm 
 
     # and return an iterable variable
-    return [0]
+    
+    result=[]
+    
+    for index in range(len(text)-len(pattern)+1):
+        if get_hash(text[index:index+len(pattern)])==get_hash(pattern):
+            if text[index:index+len(pattern)]==pattern:
+                result.append(index)
+    
+    if result == []:
+        result.append(-1)
+    
+    return result
 
 
 # this part launches the functions
